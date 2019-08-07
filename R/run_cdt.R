@@ -1,9 +1,5 @@
 #' Run the current version of the contextual data tool
 #'
-#' Include a legend
-#' Consider how breaks are made-
-#'   consistency across measures?
-#'   natural breaks?
 #'
 #' @return null
 #' @export

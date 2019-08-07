@@ -3,7 +3,7 @@ function(input, output, session) {
   output$topicvar <- renderUI({
      radioButtons("topicvar_sel", label = NULL,
                   choices = switch(input$topic,
-                                   it = c("No Computer" = "it_nocomputer",
+                                   it = c(#"No Computer" = "it_nocomputer",
                                           "No Internet" = "it_nointernet",
                                           "No Broadband" = "it_nobroadband",
                                           "Has Broadband" = "it_broadband"),
@@ -11,8 +11,9 @@ function(input, output, session) {
                                           "HS or more" = "ed_hsplus",
                                           "BA or more" = "ed_baplus"),
                                    fs = c("Two Married Parents" = "fs_marriedpar",
-                                          "Single Parent" = "fs_singlepar",
-                                          "Other HH Type" = "fs_nonfamily"),
+                                          "Single Parent" = "fs_singlepar"
+                                          #"Other HH Type" = "fs_nonfamily"
+                                          ),
                                    hi = c("Has Insurance" = "hi_yesinsure",
                                           "Not Insured" = "hi_notinsure"),
                                    hh = c("Owner Occupied" = "hh_owner",
@@ -21,22 +22,24 @@ function(input, output, session) {
                                    lf = c("Unemployed" = "lf_unemployed",
                                           "Not in Labor Force" = "lf_nilf",
                                           "Disconnected" = "lf_disconnected"),
-                                   la = c("Any language (not English)" = "la_anynoteng",
-                                          "Any Spanish" = "la_anyspanish",
-                                          "Any other Indo-european" = "la_anyindoeuro",
-                                          "Any Asian/Pacific" = "la_anyasianpac",
-                                          "Any other language" = "la_anyother",
-                                          "Speak English 'not well'" = "la_notwellnoteng",
-                                          "Speak English 'not well': Spanish" = "la_notwellspanish",
-                                          "Speak English 'not well': Other Indo-European" = "la_notwellindoeuro",
-                                          "Speak English 'not well': Asian/Pacific" = "la_notwellasianpac",
-                                          "Speak English 'not well': Other language" = "la_notwellother"),
+                                   la = c("Any language (not English)" = "la_anynoteng"
+                                          # "Any Spanish" = "la_anyspanish",
+                                          # "Any other Indo-european" = "la_anyindoeuro",
+                                          # "Any Asian/Pacific" = "la_anyasianpac",
+                                          # "Any other language" = "la_anyother",
+                                          # "Speak English 'not well'" = "la_notwellnoteng",
+                                          # "Speak English 'not well': Spanish" = "la_notwellspanish",
+                                          # "Speak English 'not well': Other Indo-European" = "la_notwellindoeuro",
+                                          # "Speak English 'not well': Asian/Pacific" = "la_notwellasianpac",
+                                          # "Speak English 'not well': Other language" = "la_notwellother"
+                                          ),
                                    pb = c("Born in same state" = "pb_samestate",
                                           "Foriegn born" = "pb_foreignborn"),
                                    rm = c("Lived in same house 1 year ago" = "rm_samehouse",
                                           "Lived in different county 1 year ago" = "rm_outcounty",
-                                          "Lived in different state 1 year ago" = "rm_outstate",
-                                          "Lived outside the USA 1 year ago" = "rm_outusa"),
+                                          "Lived in different state 1 year ago" = "rm_outstate"
+                                          # "Lived outside the USA 1 year ago" = "rm_outusa"
+                                          ),
                                    dr = c("Average Commuting Time" = "dr_avgcommute",
                                           "Commute at least 45 minutes" = "dr_45minplus",
                                           "Commute at least 60 minutes" = "dr_60minplus")
@@ -70,10 +73,14 @@ function(input, output, session) {
       addPolygons(data = distMap(), weight = 1, color = "gray", fill = FALSE)
   })
 
+  myColors <- reactive({
+    myPal(cenMap()[, input$topicvar_sel, drop=TRUE])(cenMap()[, input$topicvar_sel, drop=TRUE])
+  })
+
   stateMap <- eventReactive(input$makemap, {
     baseDistMap() %>%
       addPolygons(data = cenMap(), stroke = FALSE, fillOpacity = .5,
-                  fillColor = ~colorQuantile("YlOrRd", cenMap()[, input$topicvar_sel, drop=TRUE])(cenMap()[, input$topicvar_sel, drop=TRUE]))
+                  fillColor = myColors())
   })
 
   focaldist <- reactive({
@@ -89,6 +96,11 @@ function(input, output, session) {
   output$dispMap <- renderLeaflet({
     if (is.null(stateMap())) return()
     stateMap()
+  })
+
+  output$custom_legend <- renderPlot(height = 100, {
+    if (is.null(stateMap())) return()
+    myLeg(cenMap()[, input$topicvar_sel, drop=TRUE])
   })
 
   observeEvent(input$zoomin, {

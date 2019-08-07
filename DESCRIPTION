@@ -20,5 +20,7 @@ Imports:
     mapview,
     glue,
     shinycssloaders,
-    shinyWidgets
+    shinyWidgets,
+    toOrdinal,
+    scales
 RoxygenNote: 6.1.1
