@@ -9,3 +9,4 @@ runCDT <- function() {
   shiny::runApp(system.file("cdt_app", package = "contextualDataTool"), launch.browser = TRUE)
   invisible(NULL)
 }
+

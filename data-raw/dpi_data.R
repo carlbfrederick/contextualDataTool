@@ -3,6 +3,7 @@ library(curl)
 library(tidyverse)
 library(readxl)
 library(sf)
+library(rmapshaper)
 
 yr <- "2017-18"
 
@@ -38,7 +39,8 @@ secondary2018 <- st_read("data-raw/secondary2018/WI_Secondary_School_Districts_2
   mutate_if(is.factor, as.character)
 
 dist_maps <- rbind(rbind(unified2018, elem2018), secondary2018) %>%
-  st_transfrom(dpi_crs)
+  st_transfrom(dpi_crs) %>%
+  ms_simplify(keep = 0.05)
 
 
 use_data(dist_maps)

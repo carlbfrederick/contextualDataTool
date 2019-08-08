@@ -2,6 +2,7 @@ library(usethis)
 library(tidyverse)
 library(tidycensus)
 library(sf)
+library(rmapshaper)
 
 options(tigris_use_cache = TRUE)
 
@@ -79,7 +80,8 @@ wiBlkGrp <- get_acs(geography = "block group", year = thisyr, survey = "acs5",
     geometry           = geometry
   ) %>%
   sf::st_transform(dpi_crs) %>%
-  mutate_if(is_numeric, ~if_else(is.nan(.), NA_real_, .))
+  mutate_if(is_numeric, ~if_else(is.nan(.), NA_real_, .)) %>%
+  ms_simplify(keep = 0.05)
 
 #Vars available at tract level only
 wiTract <- get_acs(geography = "tract", year = thisyr, survey = "acs5",
@@ -132,7 +134,8 @@ wiTract <- get_acs(geography = "tract", year = thisyr, survey = "acs5",
     geometry = geometry
   ) %>%
   sf::st_transform(dpi_crs) %>%
-  mutate_if(is_numeric, ~if_else(is.nan(.), NA_real_, .))
+  mutate_if(is_numeric, ~if_else(is.nan(.), NA_real_, .)) %>%
+  ms_simplify(keep = 0.05)
 
 #save data for package
 use_data(wiBlkGrp)
