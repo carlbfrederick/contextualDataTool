@@ -1,0 +1,447 @@
+---
+title: "Untitled"
+author: "Carl Frederick"
+date: "8/8/2019"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, warning = FALSE, message = FALSE)
+
+library(sf)
+library(contextualDataTool)
+library(rmapshaper)
+library(pryr)
+library(leaflet)
+library(tidyverse)
+
+data("wiBlkGrp")
+data("dist_maps")
+
+```
+
+## Original Block Group File from tidycensus
+
+```{r}
+size10 <- object_size(wiBlkGrp)
+
+colors <- colorQuantile("viridis", wiBlkGrp$lf_unemployed, n = 7)(wiBlkGrp$lf_unemployed)
+
+ts10start <- Sys.time()
+
+wiBlkGrp %>% 
+  leaflet() %>% 
+    addPolygons(stroke = FALSE, fillOpacity = .5,
+                fillColor = colors)
+
+ts10end <- Sys.time()
+```
+
+### Keep 90% of points
+
+```{r}
+wbg.9 <- ms_simplify(wiBlkGrp, .9)
+
+size9 <- object_size(wbg.9)
+
+colors <- colorQuantile("viridis", wbg.9$lf_unemployed, n = 7)(wbg.9$lf_unemployed)
+
+ts9start <- Sys.time()
+
+wbg.9 %>% 
+  leaflet() %>% 
+    addPolygons(stroke = FALSE, fillOpacity = .5,
+                fillColor = colors)
+
+ts9end <- Sys.time()
+```
+
+### Keep 80% of points
+
+```{r}
+wbg.8 <- ms_simplify(wiBlkGrp, .8)
+
+size8 <- object_size(wbg.8)
+
+colors <- colorQuantile("viridis", wbg.8$lf_unemployed, n = 7)(wbg.8$lf_unemployed)
+
+ts8start <- Sys.time()
+
+wbg.8 %>% 
+  leaflet() %>% 
+    addPolygons(stroke = FALSE, fillOpacity = .5,
+                fillColor = colors)
+
+ts8end <- Sys.time()
+```
+
+### Keep 70% of points
+
+```{r}
+wbg.7 <- ms_simplify(wiBlkGrp, .7)
+
+size7 <- object_size(wbg.7)
+
+colors <- colorQuantile("viridis", wbg.7$lf_unemployed, n = 7)(wbg.7$lf_unemployed)
+
+ts7start <- Sys.time()
+
+wbg.7 %>% 
+  leaflet() %>% 
+    addPolygons(stroke = FALSE, fillOpacity = .5,
+                fillColor = colors)
+
+ts7end <- Sys.time()
+```
+
+### Keep 60% of points
+
+```{r}
+wbg.6 <- ms_simplify(wiBlkGrp, .6)
+
+size6 <- object_size(wbg.6)
+
+colors <- colorQuantile("viridis", wbg.6$lf_unemployed, n = 7)(wbg.6$lf_unemployed)
+
+ts6start <- Sys.time()
+
+wbg.6 %>% 
+  leaflet() %>% 
+    addPolygons(stroke = FALSE, fillOpacity = .5,
+                fillColor = colors)
+
+ts6end <- Sys.time()
+```
+
+### Keep 50% of points
+
+```{r}
+wbg.5 <- ms_simplify(wiBlkGrp, .5)
+
+size5 <- object_size(wbg.5)
+
+colors <- colorQuantile("viridis", wbg.5$lf_unemployed, n = 7)(wbg.5$lf_unemployed)
+
+ts5start <- Sys.time()
+
+wbg.5 %>% 
+  leaflet() %>% 
+    addPolygons(stroke = FALSE, fillOpacity = .5,
+                fillColor = colors)
+
+ts5end <- Sys.time()
+```
+
+### Keep 40% of points
+
+```{r}
+wbg.4 <- ms_simplify(wiBlkGrp, .4)
+
+size4 <- object_size(wbg.4)
+
+colors <- colorQuantile("viridis", wbg.4$lf_unemployed, n = 7)(wbg.4$lf_unemployed)
+
+ts4start <- Sys.time()
+
+wbg.4 %>% 
+  leaflet() %>% 
+    addPolygons(stroke = FALSE, fillOpacity = .5,
+                fillColor = colors)
+
+ts4end <- Sys.time()
+```
+
+### Keep 30% of points
+
+```{r}
+wbg.3 <- ms_simplify(wiBlkGrp, .3)
+
+size3 <- object_size(wbg.3)
+
+colors <- colorQuantile("viridis", wbg.3$lf_unemployed, n = 7)(wbg.3$lf_unemployed)
+
+ts3start <- Sys.time()
+
+wbg.3 %>% 
+  leaflet() %>% 
+    addPolygons(stroke = FALSE, fillOpacity = .5,
+                fillColor = colors)
+
+ts3end <- Sys.time()
+```
+
+### Keep 20% of points
+
+```{r}
+wbg.2 <- ms_simplify(wiBlkGrp, .2)
+
+size2 <- object_size(wbg.2)
+
+colors <- colorQuantile("viridis", wbg.2$lf_unemployed, n = 7)(wbg.2$lf_unemployed)
+
+ts2start <- Sys.time()
+
+wbg.2 %>% 
+  leaflet() %>% 
+    addPolygons(stroke = FALSE, fillOpacity = .5,
+                fillColor = colors)
+
+ts2end <- Sys.time()
+```
+
+### Keep 10% of points
+
+```{r}
+wbg.1 <- ms_simplify(wiBlkGrp, .1)
+
+size1 <- object_size(wbg.1)
+
+colors <- colorQuantile("viridis", wbg.1$lf_unemployed, n = 7)(wbg.1$lf_unemployed)
+
+ts1start <- Sys.time()
+
+wbg.1 %>% 
+  leaflet() %>% 
+    addPolygons(stroke = FALSE, fillOpacity = .5,
+                fillColor = colors)
+
+ts1end <- Sys.time()
+```
+
+### Keep 5% of points
+
+```{r}
+wbg.05 <- ms_simplify(wiBlkGrp, .05)
+
+size05 <- object_size(wbg.05)
+
+colors <- colorQuantile("viridis", wbg.05$lf_unemployed, n = 7)(wbg.05$lf_unemployed)
+
+ts05start <- Sys.time()
+
+wbg.05 %>% 
+  leaflet() %>% 
+    addPolygons(stroke = FALSE, fillOpacity = .5,
+                fillColor = colors)
+
+ts05end <- Sys.time()
+```
+
+### Compare Speed/Memory
+
+```{r}
+tibble(
+  `Points Kept` = scales::percent(c(seq(1, .1, -.1), .05)),
+  `Render Time` = c(difftime(ts10start, ts10end),
+                    difftime(ts9start, ts9end),
+                    difftime(ts8start, ts8end),
+                    difftime(ts7start, ts7end),
+                    difftime(ts6start, ts6end),
+                    difftime(ts5start, ts5end),
+                    difftime(ts4start, ts4end),
+                    difftime(ts3start, ts3end),
+                    difftime(ts2start, ts2end),
+                    difftime(ts1start, ts1end),
+                    difftime(ts05start, ts05end)),
+  `Object Size` = c(size10, size9, size8, size7, size6,
+                    size5, size4, size3, size2, size1, size05)
+) %>% 
+  knitr::kable(., caption = "Stats re: WiBlkGrp")
+```
+
+## Original Block Group File from tidycensus
+
+```{r}
+size10 <- object_size(dist_maps)
+
+ts10start <- Sys.time()
+
+dist_maps %>% 
+  leaflet() %>% 
+    addPolygons(weight = 1, color = "gray", fill = FALSE)
+
+ts10end <- Sys.time()
+```
+
+### Keep 90% of points
+
+```{r}
+wbg.9 <- ms_simplify(dist_maps, .9)
+
+size9 <- object_size(wbg.9)
+
+ts9start <- Sys.time()
+
+wbg.9 %>% 
+  leaflet() %>% 
+    addPolygons(weight = 1, color = "gray", fill = FALSE)
+
+ts9end <- Sys.time()
+```
+
+### Keep 80% of points
+
+```{r}
+wbg.8 <- ms_simplify(dist_maps, .8)
+
+size8 <- object_size(wbg.8)
+
+ts8start <- Sys.time()
+
+wbg.8 %>% 
+  leaflet() %>% 
+    addPolygons(weight = 1, color = "gray", fill = FALSE)
+
+ts8end <- Sys.time()
+```
+
+### Keep 70% of points
+
+```{r}
+wbg.7 <- ms_simplify(dist_maps, .7)
+
+size7 <- object_size(wbg.7)
+
+ts7start <- Sys.time()
+
+wbg.7 %>% 
+  leaflet() %>% 
+    addPolygons(weight = 1, color = "gray", fill = FALSE)
+
+ts7end <- Sys.time()
+```
+
+### Keep 60% of points
+
+```{r}
+wbg.6 <- ms_simplify(dist_maps, .6)
+
+size6 <- object_size(wbg.6)
+
+ts6start <- Sys.time()
+
+wbg.6 %>% 
+  leaflet() %>% 
+    addPolygons(weight = 1, color = "gray", fill = FALSE)
+
+ts6end <- Sys.time()
+```
+
+### Keep 50% of points
+
+```{r}
+wbg.5 <- ms_simplify(dist_maps, .5)
+
+size5 <- object_size(wbg.5)
+
+ts5start <- Sys.time()
+
+wbg.5 %>% 
+  leaflet() %>% 
+    addPolygons(weight = 1, color = "gray", fill = FALSE)
+
+ts5end <- Sys.time()
+```
+
+### Keep 40% of points
+
+```{r}
+wbg.4 <- ms_simplify(dist_maps, .4)
+
+size4 <- object_size(wbg.4)
+
+ts4start <- Sys.time()
+
+wbg.4 %>% 
+  leaflet() %>% 
+    addPolygons(weight = 1, color = "gray", fill = FALSE)
+
+ts4end <- Sys.time()
+```
+
+### Keep 30% of points
+
+```{r}
+wbg.3 <- ms_simplify(dist_maps, .3)
+
+size3 <- object_size(wbg.3)
+
+ts3start <- Sys.time()
+
+wbg.3 %>% 
+  leaflet() %>% 
+    addPolygons(weight = 1, color = "gray", fill = FALSE)
+
+ts3end <- Sys.time()
+```
+
+### Keep 20% of points
+
+```{r}
+wbg.2 <- ms_simplify(dist_maps, .2)
+
+size2 <- object_size(wbg.2)
+
+ts2start <- Sys.time()
+
+wbg.2 %>% 
+  leaflet() %>% 
+    addPolygons(weight = 1, color = "gray", fill = FALSE)
+
+ts2end <- Sys.time()
+```
+
+### Keep 10% of points
+
+```{r}
+wbg.1 <- ms_simplify(dist_maps, .1)
+
+size1 <- object_size(wbg.1)
+
+ts1start <- Sys.time()
+
+wbg.1 %>% 
+  leaflet() %>% 
+    addPolygons(weight = 1, color = "gray", fill = FALSE)
+
+ts1end <- Sys.time()
+```
+
+### Keep 5% of points
+
+```{r}
+wbg.05 <- ms_simplify(dist_maps, .05)
+
+size05 <- object_size(wbg.05)
+
+ts05start <- Sys.time()
+
+wbg.05 %>% 
+  leaflet() %>% 
+    addPolygons(weight = 1, color = "gray", fill = FALSE)
+
+ts05end <- Sys.time()
+```
+
+### Compare Speed/Memory
+
+```{r}
+tibble(
+  `Points Kept` = scales::percent(c(seq(1, .1, -.1), .05)),
+  `Render Time` = c(difftime(ts10start, ts10end),
+                    difftime(ts9start, ts9end),
+                    difftime(ts8start, ts8end),
+                    difftime(ts7start, ts7end),
+                    difftime(ts6start, ts6end),
+                    difftime(ts5start, ts5end),
+                    difftime(ts4start, ts4end),
+                    difftime(ts3start, ts3end),
+                    difftime(ts2start, ts2end),
+                    difftime(ts1start, ts1end),
+                    difftime(ts05start, ts05end)),
+  `Object Size` = c(size10, size9, size8, size7, size6,
+                    size5, size4, size3, size2, size1, size05)
+) %>% 
+  knitr::kable(., caption = "Stats re: dist_maps")
+```
+
