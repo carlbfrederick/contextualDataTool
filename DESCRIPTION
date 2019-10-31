@@ -1,11 +1,13 @@
 Package: contextualDataTool
 Type: Package
-Title: What the Package Does (Title Case)
+Title: Overlays Wisconsin's Community and Educational Data
 Version: 0.1.0
-Author: Who wrote it
-Maintainer: The package maintainer <yourself@somewhere.net>
-Description: More about what it does (maybe more than one line)
-    Use four spaces when indenting paragraphs within the Description.
+Authors@R: person("Carl", "Frederick", email = "carl.frederick@dpi.wi.gov", 
+                  role = c("aut", "cre"))
+Description: This contextual data tool is intended to make it easier for 
+    Wisconsin's public education stakeholders to explore both school and 
+    community data and use this information to improve education for all 
+    students.
 License: GPL-3
 Encoding: UTF-8
 LazyData: true
@@ -24,3 +26,4 @@ Imports:
     toOrdinal,
     scales
 RoxygenNote: 6.1.1
+Encoding: UTF-8
